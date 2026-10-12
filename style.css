@@ -1,0 +1,546 @@
+:root {
+    --primary-green: #1b5e20;
+    --light-green: #e8f5e9;
+    --dark-green: #003300;
+    --accent-gold: #cfb53b;
+    --text-color: #333;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Prompt', sans-serif;
+}
+
+/* พื้นหลังเคลื่อนไหวได้ (Animated Background - ธีมใบไม้ร่วง) */
+body {
+    background: linear-gradient(-45deg, #fcf6ec, #faeedb, #2c6d15, #e8c89b);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+    color: var(--text-color);
+    position: relative; /* เพื่อควบคุมเลเยอร์ใบไม้ */
+    overflow-x: hidden; /* ป้องกันแถบเลื่อนแนวนอน */
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* -------------------------------------------
+   Falling Leaves Animation (แอนิเมชันใบไม้ร่วง)
+---------------------------------------------*/
+.falling-leaves {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* ไม่ให้ใบไม้บังการคลิกปุ่มต่างๆ */
+    z-index: 0; /* ให้อยู่หลังเนื้อหา */
+}
+
+.leaf {
+    position: absolute;
+    top: -10%;
+    font-size: 28px;
+    user-select: none;
+    opacity: 0.8;
+    animation: fall linear infinite, sway ease-in-out infinite alternate;
+}
+
+@keyframes fall {
+    0% { top: -10%; opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { top: 110%; opacity: 0; }
+}
+
+@keyframes sway {
+    0% { transform: translateX(0px) rotate(0deg); }
+    100% { transform: translateX(80px) rotate(60deg); }
+}
+
+/* สุ่มตำแหน่ง ความเร็ว ให้ใบไม้ร่วงดูเป็นธรรมชาติ */
+.leaf:nth-child(1) { left: 5%; animation-duration: 10s, 3s; animation-delay: 0s, 0s; font-size: 24px; }
+.leaf:nth-child(2) { left: 20%; animation-duration: 14s, 4s; animation-delay: 2s, 1s; font-size: 32px; }
+.leaf:nth-child(3) { left: 35%; animation-duration: 12s, 3.5s; animation-delay: 4s, 2s; }
+.leaf:nth-child(4) { left: 50%; animation-duration: 16s, 4.5s; animation-delay: 1s, 0.5s; font-size: 26px; }
+.leaf:nth-child(5) { left: 65%; animation-duration: 11s, 3s; animation-delay: 5s, 1.5s; }
+.leaf:nth-child(6) { left: 80%; animation-duration: 15s, 4s; animation-delay: 3s, 2.5s; font-size: 30px; }
+.leaf:nth-child(7) { left: 95%; animation-duration: 13s, 3.5s; animation-delay: 0.5s, 0s; }
+
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 15px 50px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.logo { font-size: 24px; font-weight: 600; color: var(--primary-green); }
+.nav-links { list-style: none; display: flex; gap: 20px; }
+.nav-links a { text-decoration: none; color: var(--text-color); font-weight: 400; transition: color 0.3s; }
+.nav-links a:hover, .cart-menu { color: var(--primary-green); font-weight: 600; }
+
+/* Buttons */
+.btn-solid {
+    background-color: var(--primary-green); color: var(--white);
+    border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px;
+}
+.btn-solid:hover { background-color: var(--dark-green); }
+.btn-outline {
+    background-color: transparent; color: var(--primary-green);
+    border: 1px solid var(--primary-green); padding: 8px 16px; border-radius: 5px; cursor: pointer;
+}
+.btn-outline.active, .btn-outline:hover { background-color: var(--primary-green); color: var(--white); }
+
+/* ------ Full Width Hero Section (NASA Style) ------ */
+.hero-full-width {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* ความสูงเกือบเต็มจอ */
+    min-height: 600px;
+    
+    /* ใช้ linear-gradient ไล่สีดำจากซ้ายไปขวา เพื่อให้ตัวหนังสือสีขาวอ่านง่าย + ใส่รูปภาพพื้นหลังเต็มจอ */
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%),
+                url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* ดันเนื้อหาหลักไปด้านบน และแถบล่างไปล่างสุด */
+    z-index: 10;
+}
+
+/* --- เนื้อหาหลักฝั่งซ้าย --- */
+.hero-main-content {
+    padding: 120px 50px 50px 50px;
+    max-width: 750px;
+}
+
+.hero-main-content h1 {
+    color: #ffffff;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.hero-main-content p {
+    color: #e0e0e0;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* ปุ่มสีแดงสไตล์ NASA */
+.btn-nasa-style {
+    background-color: #d32f2f; /* สีแดง */
+    color: #ffffff;
+    border: none;
+    padding: 14px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-nasa-style:hover {
+    background-color: #b71c1c;
+}
+
+/* --- แถบข้อมูลด้านล่าง (Bottom Info Bar) --- */
+.hero-bottom-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    /* ไล่สีดำบางๆ จากล่างขึ้นบนเพื่อให้เส้นขอบและตัวหนังสือชัดเจน */
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+}
+
+.info-item {
+    padding: 30px 50px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.info-item:last-child {
+    border-right: none;
+}
+
+.info-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.info-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #bbbbbb;
+    margin-bottom: 10px;
+}
+
+.info-value {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.red-arrow {
+    color: #d32f2f;
+    background-color: rgba(211, 47, 47, 0.2);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+/* Responsive สำหรับแท็บเล็ตและมือถือ */
+@media (max-width: 992px) {
+    .hero-main-content h1 {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-main-content {
+        padding: 60px 20px;
+    }
+    .hero-main-content h1 {
+        font-size: 38px;
+    }
+    /* บนมือถือปรับแถบล่างให้เรียงซ้อนกัน */
+    .hero-bottom-bar {
+        grid-template-columns: 1fr;
+        background: rgba(0,0,0,0.6);
+    }
+    .info-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 20px;
+    }
+    .info-item:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Pages */
+/* เพิ่ม z-index: 10 ให้เนื้อหาลอยอยู่เหนือใบไม้ที่กำลังร่วง */
+.page-section { display: none; padding: 50px; min-height: 80vh; position: relative; z-index: 10; } 
+.page-section.active { display: block; }
+h2 { text-align: center; color: var(--primary-green); margin-bottom: 30px; }
+
+/* Categories & Products (รวมโค้ดปรับการ์ดให้สูงเท่ากันและรูปไม่ยืด) */
+.category-filters { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+.product-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px; 
+    justify-content: center; 
+}
+.product-card { 
+    background: rgba(255,255,255,0.9); 
+    padding: 20px; 
+    border-radius: 12px; 
+    text-align: center; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    height: 100%; 
+    transition: transform 0.3s ease;
+}
+.product-card:hover { transform: translateY(-5px); }
+.product-card img { 
+    width: 100%; 
+    aspect-ratio: 4 / 3; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    margin-bottom: 15px; 
+}
+.product-card h3 { font-size: 18px; margin-bottom: 10px; color: var(--primary-green); }
+.product-card .price { color: var(--accent-gold); font-size: 22px; font-weight: bold; margin: 10px 0 20px 0; }
+
+/* Cart & Checkout */
+.cart-container { max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.9); padding: 30px; border-radius: 10px; }
+.cart-list { list-style: none; margin-bottom: 20px; }
+.cart-list li { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #eee; font-size: 18px; }
+.cart-summary { text-align: right; font-size: 24px; font-weight: bold; color: var(--primary-green); }
+
+.checkout-container { max-width: 500px; margin: 0 auto; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 10px; text-align: center; }
+.qr-code-box { background: #fff; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #0056ff; }
+.qr-code-box img { width: 100%; max-width: 300px; }
+.account-name { font-size: 18px; font-weight: bold; color: #0056ff; margin-top: 15px; }
+.checkout-container .price { color: var(--accent-gold); font-size: 28px; }
+
+/* About Us & Forms */
+.about-container { max-width: 800px; margin: 0 auto; text-align: center; }
+.about-image { width: 100%; max-width: 500px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.about-text { font-size: 18px; line-height: 1.6; }
+.form-container { max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; background: rgba(255,255,255,0.9); padding: 30px; border-radius: 10px; }
+.form-container input, .form-container textarea { padding: 12px; border: 1px solid #ccc; border-radius: 5px; }
+
+/* Flash Sale Section */
+.flash-sale-container {
+    margin-top: 50px;
+    text-align: center;
+}
+.flash-title {
+    color: #d32f2f;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+.countdown-timer {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--white);
+    background-color: #d32f2f;
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+}
+
+/* Price Styling for Flash Sale */
+.old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 16px;
+    margin-right: 10px;
+}
+.new-price {
+    color: #d32f2f;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Cart Item Actions & Quantity Control */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.cart-item-info h4 { 
+    color: var(--primary-green); 
+    margin-bottom: 5px; 
+    font-size: 18px;
+}
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ปุ่ม เพิ่ม/ลด จำนวน */
+.qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background: var(--white);
+}
+
+.qty-btn {
+    background: #f9f9f9;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-color);
+    transition: background 0.2s;
+}
+.qty-btn:hover { background: #e0e0e0; }
+.qty-input {
+    width: 60px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 8px;
+    font-size: 16px;
+    -moz-appearance: textfield; 
+}
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.item-total { 
+    font-weight: bold; 
+    color: var(--accent-gold); 
+    min-width: 120px; 
+    text-align: right; 
+    font-size: 18px;
+}
+
+/* ปุ่มลบสินค้า */
+.btn-remove {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+.btn-remove:hover { background: #b71c1c; }
+
+/* -------------------------------------------
+   Responsive / Media Queries (รวมไว้ที่เดียว)
+---------------------------------------------*/
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; gap: 15px; padding: 15px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; }
+    .category-filters { flex-wrap: wrap; }
+    
+    /* Hero Section บนมือถือ (ให้เรียงซ้อนกันแทน) */
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-content {
+        padding: 30px 20px;
+    }
+}
+.logo img {
+    height: 80px; /* ปรับตัวเลขความสูงของโลโก้ได้ตามต้องการ */
+    width: auto;
+    display: block;
+}
+/* --- ส่วนกล่องหลัก (ครอบทั้งรูปและข้อความ) --- */
+.about-container { 
+    max-width: 750px; 
+    margin: 0 auto; 
+    text-align: center; 
+    background-color: var(--white); /* พื้นหลังสีขาวครอบทั้งหมด */
+    padding: 50px 40px; /* ระยะห่างขอบด้านใน */
+    border-radius: 20px; /* มุมมนของกรอบใหญ่ */
+    border: 2px solid var(--accent-gold); /* เส้นขอบสีทอง */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08); /* เงาดูลอยขึ้นจากพื้นหลังใบไม้ */
+}
+
+/* --- ส่วนรูปภาพ --- */
+.about-image { 
+    width: 100%; 
+    max-width: 450px; 
+    border-radius: 12px; 
+    margin-bottom: 30px; 
+    /* เปลี่ยนจากกรอบหนาๆ เป็นเงาบางๆ เพื่อให้รูปดูมีมิติบนพื้นขาว */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
+    transition: transform 0.3s ease; 
+}
+.about-image:hover {
+    transform: translateY(-5px);
+}
+
+/* --- ส่วนข้อความ --- */
+.about-text { 
+    font-size: 18px; 
+    line-height: 1.8; 
+    color: var(--dark-green);
+    margin: 0 auto;
+    max-width: 600px;
+    /* ลบกรอบและพื้นหลังส่วนตัวออก เพื่อให้กลืนไปกับการ์ดใบใหญ่ */
+}
+/* ------ Modern Contact Section ------ */
+.contact-wrapper {
+    display: flex;
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+}
+
+/* ฝั่งซ้าย: แถบสีเขียว */
+.contact-info-panel {
+    flex: 1;
+    background: var(--primary-green);
+    color: var(--white);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info-panel h3 {
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.contact-info-panel p {
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: var(--light-green);
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* ฝั่งขวา: แบบฟอร์มสีขาว */
+.contact-form-panel {
+    flex: 1.5;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form-panel input, 
+.contact-form-panel textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Prompt', sans-serif;
+}
+
+.contact-form-panel input:focus, 
+.contact-form-panel textarea:focus {
+    outline: none;
+    border-color: var(--primary-green);
+}
+
+/* Responsive สำหรับแท็บเล็ตและมือถือ */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+    }
+    .contact-info-panel {
+        padding: 30px;
+    }
+}

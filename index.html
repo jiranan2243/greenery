@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenery Space | พรรณไม้พรีเมียม</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- พื้นหลังแอนิเมชันใบไม้ร่วง (ต้องมีแท็กปิด </div> ตัวสุดท้ายให้ครบ) -->
+    <div class="falling-leaves">
+        <div class="leaf">🍂</div>
+        <div class="leaf">🍁</div>
+        <div class="leaf">🍂</div>
+        <div class="leaf">🍁</div>
+        <div class="leaf">🍂</div>
+        <div class="leaf">🍁</div>
+        <div class="leaf">🍂</div>
+        
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+    <!-- เปลี่ยน logo.png เป็นชื่อไฟล์รูปภาพโลโก้ของคุณ -->
+    <img src="logo.jpg" alt="Greenery Space Logo">
+</div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showPage('home')">หน้าแรก</a></li>
+            <li><a href="#" onclick="showPage('products')">สินค้า</a></li>
+            <li><a href="#" onclick="showPage('promotion')">โปรโมชัน</a></li>
+            <li><a href="#" onclick="showPage('about')">เกี่ยวกับเรา</a></li>
+            <li><a href="#" onclick="showPage('contact')">ติดต่อเรา</a></li>
+            <li><a href="#" onclick="showPage('cart')" class="cart-menu">🛒 ตะกร้า <span id="cartCount">(0)</span></a></li>
+        </ul>
+        <div class="nav-actions">
+            <button onclick="showPage('login')" class="btn-outline">เข้าสู่ระบบ</button>
+            <button onclick="showPage('register')" class="btn-solid">สมัครสมาชิก</button>
+        </div>
+    </nav>
+
+    <!-- Page: Home (NASA Style Layout) -->
+    <section id="home" class="page-section active" style="padding: 0; max-width: 100%;">
+        <div class="hero-full-width">
+            
+            <!-- Main Content (ฝั่งซ้าย) -->
+            <div class="hero-main-content">5
+                <h1>ราชันแห่งพรรณไม้</h1>
+                <p>คัดสรรพรรณไม้หายากและไม้ประดับพรีเมียมจากทั่วโลก ดูแลด้วยความเชี่ยวชาญ<br>เพื่อรสนิยมและความสมบูรณ์แบบให้กับคุณ</p>
+                
+                <!-- ปุ่มสีแดงตามต้นฉบับ -->
+                <button onclick="showPage('products')" class="btn-nasa-style">เลือกชมสินค้า</button>
+            </div>
+
+            <!-- Bottom Info Bar (แถบ 3 คอลัมน์ด้านล่าง) -->
+            <div class="hero-bottom-bar">
+                <div class="info-item">
+                    <span class="info-label">สายพันธุ์หายาก</span>
+                    <div class="info-value">นำเข้ามาจากต่างประเทศ <span class="red-arrow">➔</span></div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">การรับประกัน</span>
+                    <div class="info-value">คุณภาพ 100% <span class="red-arrow">➔</span></div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">บริการลูกค้า</span>
+                    <div class="info-value">ให้คำปรึกษาดูแล 24 ชม <span class="red-arrow">➔</span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Page: Products -->
+    <section id="products" class="page-section">
+        <h2>คอลเลกชันพรรณไม้พรีเมียม</h2>
+        
+        <div class="category-filters">
+            <button class="btn-outline active" onclick="filterCategory('all')">ทั้งหมด</button>
+            <button class="btn-outline" onclick="filterCategory('groundcover')">ไม้คลุมดิน</button>
+            <button class="btn-outline" onclick="filterCategory('tree')">ไม้ยืนต้น</button>
+            <button class="btn-outline" onclick="filterCategory('ornamental')">ไม้ประดับ</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+            <!-- ไม้คลุมดิน -->
+            <div class="product-card" data-category="groundcover">
+                <img src="mosspan.jpg" alt="มอสสเปน">
+                <h3>มอสสเปนนำเข้า</h3>
+                <p class="price">4,500 บาท</p>
+                <button class="btn-solid" onclick="addToCart('มอสสเปนนำเข้า', 4500)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="groundcover">
+                <img src="gevi.jpg" alt="เฟิร์นกีวี">
+                <h3>เฟิร์นกีวีนิวซีแลนด์</h3>
+                <p class="price">8,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('เฟิร์นกีวีนิวซีแลนด์', 8000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="groundcover">
+                <img src="tree fern.jpg" alt="ทรีเฟิร์นออสเตรเลีย">
+                <h3>ทรีเฟิร์นออสเตรเลีย</h3>
+                <p class="price">1,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('ทรีเฟิร์นออสเตรเลีย', 1000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="groundcover">
+                <img src="mosjpan.jpg" alt="มอสขนนกญี่ปุ่น">
+                <h3>มอสขนนกญี่ปุ่น</h3>
+                <p class="price">5,500 บาท</p>
+                <button class="btn-solid" onclick="addToCart('มอสขนนกญี่ปุ่น', 5500)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="groundcover">
+                <img src="ivy span.jpg" alt="ไอวี่ด่างขาว">
+                <h3>ไอวี่ด่างขาวสเปน</h3>
+                <p class="price">3,500 บาท</p>
+                <button class="btn-solid" onclick="addToCart('ไอวี่ด่างขาวสเปน', 3500)">เพิ่มลงตะกร้า</button>
+            </div>
+
+            <!-- ไม้ยืนต้น -->
+            <div class="product-card" data-category="tree">
+                <img src="black pine.jpg" alt="บอนไซสนดำ">
+                <h3>บอนไซสนดำญี่ปุ่น</h3>
+                <p class="price">150,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('บอนไซสนดำญี่ปุ่น', 150000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="tree">
+                <img src="olive span.jpg" alt="โอลีฟสเปน">
+                <h3>ต้นโอลีฟสเปน</h3>
+                <p class="price">85,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('ต้นโอลีฟสเปน', 85000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="tree">
+                <img src="baobab.jpg" alt="ต้นเบาบับ">
+                <h3>ต้นเบาบับ มาดากัสการ์</h3>
+                <p class="price">120,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('ต้นเบาบับ มาดากัสการ์', 120000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="tree">
+                <img src="sakura.jpg" alt="ซากุระนำเข้า">
+                <h3>ต้นซากุระญี่ปุ่น</h3>
+                <p class="price">65,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('ต้นซากุระญี่ปุ่น', 65000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="tree">
+                <img src="bonsai white.webp" alt="บอนไซต้นสนขาวญี่ปุ่น 400ปี">
+                <h3>บอนไซต้นสนขาวญี่ปุ่น 400ปี</h3>
+                <p class="price">4,000,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('บอนไซต้นสนขาวญี่ปุ่น 400ปี', 4000000)">เพิ่มลงตะกร้า</button>
+            </div>
+
+            <!-- ไม้ประดับ -->
+            <div class="product-card" data-category="ornamental">
+                <img src="monsterra mint.jpg" alt="มอนสเตอร่าด่างมิ้นต์">
+                <h3>มอนสเตอร่าด่างมิ้นต์</h3>
+                <p class="price">120,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('มอนสเตอร่าด่างมิ้นต์', 120000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="ornamental">
+                <img src="fi.jpg" alt="ฟิโลเดนดรอน สปิริตัส">
+                <h3>ฟิโลเดนดรอน สปิริตัส ซังติ</h3>
+                <p class="price">250,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('ฟิโลเดนดรอน สปิริตัส ซังติ', 250000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="ornamental">
+                <img src="banana dang.jpg" alt="กล้วยด่างฟลอริดา">
+                <h3>กล้วยด่างฟลอริดา</h3>
+                <p class="price">85,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('กล้วยด่างฟลอริดา', 85000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="ornamental">
+                <img src="ele yellow.jpg" alt="อโลคาเซีย หูช้างด่างเหลือง">
+                <h3>อโลคาเซีย หูช้างด่างเหลือง</h3>
+                <p class="price">45,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('อโลคาเซีย หูช้างด่างเหลือง', 45000)">เพิ่มลงตะกร้า</button>
+            </div>
+            <div class="product-card" data-category="ornamental">
+                <img src="dang.jfif" alt="เสน่ห์จันทร์ประกายดาวด่าง">
+                <h3>เสน่ห์จันทร์ประกายดาวด่าง</h3>
+                <p class="price">35,000 บาท</p>
+                <button class="btn-solid" onclick="addToCart('เสน่ห์จันทร์ประกายดาวด่าง', 35000)">เพิ่มลงตะกร้า</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Cart -->
+    <section id="cart" class="page-section">
+        <h2>ตะกร้าสินค้าของคุณ</h2>
+        <div class="cart-container">
+            <ul id="cartItemsList" class="cart-list"></ul>
+            <div class="cart-summary">
+                <h3>ยอดรวม: <span id="cartTotal">0</span> บาท</h3>
+                <button class="btn-solid large" onclick="proceedToCheckout()" style="width: 100%; margin-top: 20px;">ดำเนินการชำระเงิน</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Checkout -->
+    <section id="checkout" class="page-section">
+        <h2>ชำระเงิน</h2>
+        <div class="checkout-container">
+            <h3>ยอดที่ต้องชำระ: <span id="checkoutTotal" class="price">0</span> บาท</h3>
+            <p>กรุณาสแกนคิวอาร์โค้ดด้านล่างเพื่อชำระเงินผ่าน PromptPay</p>
+            <div class="qr-code-box">
+                <img src="QR.jfif" alt="QR Code PromptPay นาย จิระนันท์ สมนึก">
+                <p class="account-name">ชื่อบัญชี: นาย จิระนันท์ สมนึก</p>
+            </div>
+            <button class="btn-solid" onclick="confirmPayment()" style="margin-top: 20px;">ยืนยันการชำระเงินเรียบร้อยแล้ว</button>
+        </div>
+    </section>
+
+    <!-- Page: Promotion (Flash Sale) -->
+    <section id="promotion" class="page-section">
+        <h2>โปรโมชันพิเศษ</h2>
+        </div>
+        <div class="flash-sale-container">
+            <h3 class="flash-title">⚡ Flash Sale ลด 10% (เปลี่ยนสินค้าทุก 24 ชม.)</h3>
+            <div class="countdown-timer" id="countdownTimer">24:00:00</div>
+            <div class="product-grid" id="flashSaleGrid"></div>
+        </div>
+    </section>
+
+    <!-- Page: About Us -->
+    <section id="about" class="page-section">
+        <h2>เกี่ยวกับ Greenery Space</h2>
+        <div class="about-container">
+            <img src="me.jpg" alt="รูปภาพทีมงาน" class="about-image">
+            <p class="about-text">ร้านเรานำไม้หายากระดับโลกมาขาย ราคาดี มีคุณภาพ มีมาตรฐาน</p>
+        </div>
+    </section>
+
+    <!-- Page: Contact (Modern Split Layout) -->
+    <section id="contact" class="page-section">
+        <h2>ติดต่อสอบถาม</h2>
+        <div class="contact-wrapper">
+            
+            <!-- ฝั่งซ้าย: ข้อมูลติดต่อ -->
+            <div class="contact-info-panel">
+                <h3>ช่องทางการติดต่อ</h3>
+                <p>ยินดีให้คำปรึกษาและบริการคุณลูกค้าทุกท่าน</p>
+                <div class="info-item">
+                    <span>📞</span> 093-134-2243
+                </div>
+                <div class="info-item">
+                    <span>✉️</span> jiranan.sm@rmuti.ac.th
+                </div>
+                <div class="info-item">
+                    <span>📍</span> มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตขอนแก่น ,จังหวัดขอนแก่น, 40000
+                </div>
+            </div>
+
+            <!-- ฝั่งขวา: แบบฟอร์ม -->
+            <form class="contact-form-panel" onsubmit="submitContact(event)">
+                <input type="text" id="contactName" placeholder="ชื่อ-นามสกุล" required>
+                <input type="email" id="contactEmail" placeholder="อีเมล" required>
+                <textarea id="contactMessage" rows="5" placeholder="ข้อความของคุณ..." required></textarea>
+                <button type="submit" class="btn-solid">ส่งข้อความ</button>
+            </form>
+
+        </div>
+    </section>
+    <!-- Page: Login -->
+    <section id="login" class="page-section">
+        <h2>เข้าสู่ระบบ</h2>
+        <form class="form-container" onsubmit="submitLogin(event)">
+            <input type="email" id="loginEmail" placeholder="อีเมล" required>
+            <input type="password" id="loginPassword" placeholder="รหัสผ่าน" required>
+            
+            <!-- เพิ่มลิงก์ลืมรหัสผ่าน จัดชิดขวา -->
+            <div style="text-align: right; margin-top: -5px; margin-bottom: 10px;">
+                <a href="#" onclick="forgotPassword()" style="color: var(--primary-green); font-size: 14px; text-decoration: none;">ลืมรหัสผ่าน?</a>
+            </div>
+            
+            <button type="submit" class="btn-solid">ล็อกอิน</button>
+            
+            <p style="margin-top:15px; text-align:center; font-size: 14px;">
+                ยังไม่มีบัญชี? <a href="#" onclick="showPage('register')" style="color: var(--primary-green); text-decoration: none; font-weight: 600;">สมัครสมาชิก</a>
+            </p>
+        </form>
+    </section>
+    <!-- Page: Register -->
+    <section id="register" class="page-section">
+        <h2>สมัครสมาชิก</h2>
+        <form class="form-container" onsubmit="submitRegister(event)">
+            <input type="text" id="regName" placeholder="ชื่อผู้ใช้งาน" required>
+            <input type="email" id="regEmail" placeholder="อีเมล" required>
+            <input type="password" id="regPassword" placeholder="รหัสผ่าน" required>
+            <button type="submit" class="btn-solid">สมัครสมาชิก</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
